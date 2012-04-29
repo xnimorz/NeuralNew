@@ -30,7 +30,7 @@ namespace NumbersSearcher
 
                 StreamReader sr = null;
                 try
-                {
+                {//пытаемся считать
                     sr = new StreamReader("chars.txt");
                     string line;
                     while ((line = sr.ReadLine()) != null)
@@ -48,20 +48,20 @@ namespace NumbersSearcher
         
                 }
                 finally
-                {
+                {//закрываем в любом случае
                     sr.Close(); 
                 }
             }
             else
             {
-
+//если файла нет, создадим
                 StreamWriter write = new StreamWriter("chars.txt");
                 write.Close();
             }
 
         }
         void WriteFile(char a)
-        {
+        {//добавление нового символа
            
             StreamWriter sw;
             sw = new StreamWriter("chars.txt",true);
@@ -73,20 +73,20 @@ namespace NumbersSearcher
         }
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();//инициализация
             objects = Holder.GetInstance(Preview.Width, Preview.Height);
-            Preview.Image = objects.Drawer.Btmp;
+            
             //this.Clear();
 
             
-            ReadFile();
+            ReadFile();//чтение
         }
 
         private void Form1_DragDrop(object sender, DragEventArgs e)
         {
             string[] StrList = (string[])e.Data.GetData(DataFormats.FileDrop);
             foreach (string CurrentF in StrList)
-            {
+            {//добавляем поддержку драга, следим за многими файлами, берем последний
                 if (CurrentF.Substring(CurrentF.Length - 4) == ".bmp")
                 {
                     Path = CurrentF;
@@ -97,14 +97,14 @@ namespace NumbersSearcher
         }
 
         private void Form1_DragEnter(object sender, DragEventArgs e)
-        {
+        {//поддержка дропа
             if (e.Data.GetDataPresent(DataFormats.FileDrop, false) == true)
                 e.Effect = DragDropEffects.All;
 
         }
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        {//открыие изображения
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 
@@ -117,7 +117,7 @@ namespace NumbersSearcher
         
 
         private void распознатьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        {//распознание
             points.Clear();
             points.Add(1);
             
@@ -139,7 +139,7 @@ namespace NumbersSearcher
         }
 
         private void исправитьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        {//исправление - изменяем цифру в текстовом поле, нажимаем исправить - изменение весов
             char smb;
             if (Result.Text == "")
                 smb = '\n';

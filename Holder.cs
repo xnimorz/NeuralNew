@@ -1,21 +1,17 @@
-﻿//using System;
-using System.Collections.Generic;
-
-//using System.Linq;
-//using System.Text;
+﻿using System.Collections.Generic;
 
 namespace NumbersSearcher
 {
-    //вспомогательный класс - хранит все объекты системы и предоставляет интерфейс доступа к ним
+    //Хранение объектов
     public class Holder
     {
-        double speed = 0.5;
+        double speed = 0.5;//статически зададим скорость обучения
         public double Speed
         {
             get { return speed; }
             set { speed = value; }
         }
-        Net net;// = new Net();
+        Net net;
 
         public string Recognize(List<byte> x)
         {
@@ -31,15 +27,7 @@ namespace NumbersSearcher
             get { return recognition; }
         }
 
-        private Drawer drawer;
-
-        public Drawer Drawer
-        {
-            get
-            {
-                return drawer;
-            }
-        }
+       
         private int state = 0;
         public int State
         {
@@ -48,8 +36,8 @@ namespace NumbersSearcher
         }
         private static Holder instance;
         private Holder(int width, int height)
-        {
-            drawer = new Drawer(width, height);
+        {//инициализация распознания образа с заданными размерами
+            
             net = new Net(width * height);
             
         }
@@ -62,12 +50,12 @@ namespace NumbersSearcher
             return instance;
         }
         public void AddNeuron(char symbol)
-        {
+        {//новый нейрон
             net.AddNeuron(symbol);
         }
 
         public string Correct(char symbol, List<byte> x)
-        {
+        {//исправление
             recognition = net.Correct(symbol,x,speed);
             if (recognition == '\n')
                 return "не удалось";
@@ -75,11 +63,11 @@ namespace NumbersSearcher
             return recognition.ToString();
         }
         public void Save()
-        {
+        {//сохранение
             net.Save();
         }
         public List<double> GetNeuron(char s)
-        {
+        {//получение отдельного нейрона
             return net.GetNeuron(s);
         }
         

@@ -1,7 +1,4 @@
-﻿//using System;
-using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace NumbersSearcher
@@ -15,9 +12,9 @@ namespace NumbersSearcher
             resolution = pointCount;
         }
 
-        //сохранение всех нейронов в файл
+      
         public void Save()
-        {
+        {  //сохранение всех нейронов в файл
             foreach (Neuron n in net)
                 n.Save();
         }
@@ -25,16 +22,16 @@ namespace NumbersSearcher
         int resolution;
         List<Neuron> net = new List<Neuron>();
 
-        //добавление нейрона - crate
+        
         public void AddNeuron(char symbol)
-        {
+        {//добавление нейрона - create
             net.Add(new Neuron(symbol, resolution));
         }
         int lastNeuron;
 
-        //распознавание  - вызов сравнения и поиск
+      
         public char Recognize(List<byte> x)
-        {
+        {//распознание, поиск, сравнени
             char result = '\n';
             lastNeuron = -1;
             foreach(Neuron n in net)
@@ -48,9 +45,9 @@ namespace NumbersSearcher
         }
 
 
-        //обучение
+        
         public char Correct(char symbol, List<byte> x, double speed)
-        {
+        {//корректировка
             bool check = false;
                 for (int i = 0; i < net.Count; i++)
                 {
@@ -81,9 +78,9 @@ namespace NumbersSearcher
             return Recognize(x);
         }
 
-        //данные о нейроне
+     
         public List<double> GetNeuron(char s)
-        {
+        {   //данные о нейроне
             foreach (Neuron n in net)
                 if (n.Symbol == s)
                     return n.w;
