@@ -1,17 +1,21 @@
-﻿using System.Collections.Generic;
+﻿//using System;
+using System.Collections.Generic;
+
+//using System.Linq;
+//using System.Text;
 
 namespace NumbersSearcher
 {
-    //Хранение объектов
+    //вспомогательный класс - хранит все объекты системы и предоставляет интерфейс доступа к ним
     public class Holder
     {
-        double speed = 0.5;//статически зададим скорость обучения
+        double speed = 0.5;
         public double Speed
         {
             get { return speed; }
             set { speed = value; }
         }
-        Net net;
+        Net net;// = new Net();
 
         public string Recognize(List<byte> x)
         {
@@ -27,7 +31,7 @@ namespace NumbersSearcher
             get { return recognition; }
         }
 
-       
+      
         private int state = 0;
         public int State
         {
@@ -36,7 +40,7 @@ namespace NumbersSearcher
         }
         private static Holder instance;
         private Holder(int width, int height)
-        {//инициализация распознания образа с заданными размерами
+        {
             
             net = new Net(width * height);
             
@@ -50,12 +54,12 @@ namespace NumbersSearcher
             return instance;
         }
         public void AddNeuron(char symbol)
-        {//новый нейрон
+        {
             net.AddNeuron(symbol);
         }
 
         public string Correct(char symbol, List<byte> x)
-        {//исправление
+        {
             recognition = net.Correct(symbol,x,speed);
             if (recognition == '\n')
                 return "не удалось";
@@ -63,11 +67,11 @@ namespace NumbersSearcher
             return recognition.ToString();
         }
         public void Save()
-        {//сохранение
+        {
             net.Save();
         }
         public List<double> GetNeuron(char s)
-        {//получение отдельного нейрона
+        {
             return net.GetNeuron(s);
         }
         

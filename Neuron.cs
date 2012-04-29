@@ -101,11 +101,12 @@ namespace NumbersSearcher
         }
 
         //активационная функция
-        public byte Y(List<byte> x)
+        public double Y(List<byte> x)
         {
-            if (S(x) >= 0) lastY = 1;
-            else lastY= 0;
-            return (byte)lastY;
+            double Result;
+            Result = S(x);
+            if (Result >= 0) return Result;
+            else return 0;
         }
 
         //сохранение значений в файл
